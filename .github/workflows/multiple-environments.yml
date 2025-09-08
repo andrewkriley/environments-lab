@@ -1,0 +1,46 @@
+name: Deploy to Multiple Environments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dev_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: development
+      url: https://dev.example.com
+    steps:
+      - name: Deploy to Development
+        run: |
+          echo "Deploying to the development environment..."
+          echo "Using a secret specific to this environment: ${{ secrets.DEV_SECRET }}"
+          echo "Using a variable specific to this environment: ${{ vars.DEV_VAR }}"
+          echo "Deployment URL: ${{ env.environment_url }}"
+          
+  qa_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: qa
+      url: https://qa.example.com
+    needs: dev_deploy
+    steps:
+      - name: Deploy to QA
+        run: |
+          echo "Deploying to the QA environment..."
+          echo "Using a secret specific to this environment: ${{ secrets.QA_SECRET }}"
+          echo "Using a variable specific to this environment: ${{ vars.QA_VAR }}"
+          echo "Deployment URL: ${{ env.environment_url }}"
+
+  prod_deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://prod.example.com
+    needs: qa_deploy
+    steps:
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to the production environment..."
+          echo "Using a secret specific to this environment: ${{ secrets.PROD_SECRET }}"
+          echo "Using a variable specific to this environment: ${{ vars.PROD_VAR }}"
+          echo "Deployment URL: ${{ env.environment_url }}"
