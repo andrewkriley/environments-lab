@@ -1,10 +1,10 @@
-Environments-Lab
+## Multiple Environments-Lab
 To use multiple environments, secrets, and variables in a GitHub Actions workflow, you need to define them in your repository settings first. Then, you can reference them in your YAML file. This guide explains a sample workflow file, multiple-environments.yml, that demonstrates this process.
 
 Workflow Overview
 This workflow is triggered manually and has three jobs: dev_deploy, qa_deploy, and prod_deploy. Each job uses a different environment, demonstrating how to handle secrets and variables specific to each.
 
-YAML
+# YAML
 ```yaml
 name: Deploy to Multiple Environments
 
@@ -54,26 +54,26 @@ jobs:
           echo "Deployment URL: ${{ env.environment_url }}"
 ```
 
-How to Set Up the Workflow
+### How to Set Up the Workflow
 1. Configure Environments
 Before you can run the workflow, you must set up the environments in your GitHub repository. Go to Settings > Environments and create three new environments: development, qa, and production.
 
 2. Add Secrets and Variables
 Within each environment, add the secrets and variables that the workflow will use.
 
-For the development environment, add:
+# For the development environment, add:
 
 A secret named DEV_SECRET with a value like dev_api_key_123.
 
 A variable named DEV_VAR with a value like dev_version_1.0.
 
-For the qa environment, add:
+# For the qa environment, add:
 
 A secret named QA_SECRET with a value like qa_api_key_456.
 
 A variable named QA_VAR with a value like qa_version_1.2.
 
-For the production environment, add:
+# For the production environment, add:
 
 A secret named PROD_SECRET with a value like prod_api_key_789.
 
